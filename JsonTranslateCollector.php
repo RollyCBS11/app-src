@@ -3,6 +3,7 @@ namespace app\src;
 use DeepL\Translator;
 
 class JsonCollector {
+    // test comment 4
     // test comment 3
     // test comment 2
     // Product-name key convention: e.g. "product_name_pillow". These are stored/looked up
