@@ -3,6 +3,7 @@ namespace app\src;
 use DeepL\Translator;
 
 class JsonCollector {
+    // -----------------------------------------------------------------------------------
     // updated JSONCollectors -xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     // Product-name key convention: e.g. "product_name_pillow". These are stored/looked up
     // in a shared lang/<language>/product.json instead of the page-specific json file, so
