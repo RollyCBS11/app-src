@@ -1,0 +1,31 @@
+/*CSS FOR MODAL*/
+#app_common_modal,
+#error_handler_overlay{position:fixed;top:0;left:0;padding:0;margin:0;width:100%;height:100%;z-index:2147483647;background:#333;background:rgba(255, 255, 255, .8);display:none;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+#app_common_modal .app_modal_body,
+#error_handler_overlay .error_handler_body{max-width:600px;-webkit-background-clip:padding-box;font-family:Verdana, Geneva, sans-serif;box-sizing:border-box;outline:0;text-align: left;}
+#error_handler_overlay .error_handler_body{margin:100px auto;width:95%;padding:20px;background-color:#fff;background-clip:padding-box;border:1px solid #999;border:1px solid rgba(0, 0, 0, .2);border-radius:0;-webkit-box-shadow:0 3px 9px rgba(0, 0, 0, .5);box-shadow:0 3px 9px rgba(0, 0, 0, .5);font-size:14px;line-height:1.42857143;color:#333;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box}
+#app_common_modal_close,
+#error_handler_overlay_close{position:absolute;right:-10px;top:-10px;color:#FFF;background-color:#333;border:2px solid #FFF;border-radius:50%;width:30px;height:30px;text-align:center;cursor:pointer;text-decoration:none;font-weight:700;line-height:26px;padding:0;margin:0}
+#app_common_modal .app_modal_body{margin:100px auto;min-width:inherit;width:95%;min-height:400px;padding:2.5%;background-color:#fff;background-clip:padding-box;border:1px solid #999;border:1px solid rgba(0, 0, 0, .2);border-radius:0;-webkit-box-shadow:0 3px 9px rgba(0, 0, 0, .5);box-shadow:0 3px 9px rgba(0, 0, 0, .5);font-size:14px;line-height:1.42857143;color:#333;position:relative;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box}
+#app_common_modal .app_modal_body iframe{min-height:400px;width:100%;border:1px solid #d5d6ef}
+.exitpop-content{position:fixed;height:400px;width:708px;margin:-200px 0 0 -354px;top:50%;left:50%;text-align:left;padding:0;border:none;z-index:2147483647}
+.exitpopup-overlay{background:rgba(0, 0, 0, .6);height:100%;left:0;position:fixed;top:0;width:100%;z-index:2147483647;display:none}
+.exitpop-content img{display:block;margin:0 auto;position:relative;text-align:center;max-width:100%;height:auto}
+.exitpop-discountbar{background-color:red;border-bottom:4px dashed #fff;color:#fff;font-family:Arial, Helvetica, sans-serif;font-size:15px;font-weight:700;height:50px;line-height:50px;position:fixed;text-align:center;top:0;width:100%;z-index:9999;display:none}
+.app-load-spinner{display:none;position:fixed;top:0;bottom:0;left:0;right:0;width:100px;height:100px;margin:auto;background-color:#333;border-radius:100%}
+
+@-webkit-keyframes scaleout{
+0%{-webkit-transform:scale(0)}
+100%{-webkit-transform:scale(1);opacity:0}
+}
+
+@keyframes  scaleout{
+0%{transform:scale(0);-webkit-transform:scale(0)}
+100%{transform:scale(1);-webkit-transform:scale(1);opacity:0}
+}
+
+@media  screen and (max-device-width:767px) and (orientation:landscape){#app_common_modal .app_modal_body, #error_handler_overlay .error_handler_body{margin:20px auto;}
+#app_common_modal .app_modal_body iframe{min-height:360px;}
+}
+
+@media(max-device-width:767px){#app_common_modal .app_modal_body{margin:2% auto}}

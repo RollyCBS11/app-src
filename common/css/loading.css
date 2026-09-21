@@ -1,0 +1,100 @@
+/*popups*/
+.popup-loading-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0; top: 0;
+    z-index: 1100;
+    background: rgba(0,0,0,0.95);
+    font-family: 'san-serif'
+}
+
+.popup-loading-wrapper h3 {
+    font-size: 18px;
+}
+
+.popup-loading-wrapper .popup {
+    min-width: 300px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    position: absolute;
+    top: 50%; left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.popup-loading-wrapper .popup h2 {
+    font-size: 32px;
+    color: #fff;
+    line-height: 36px;
+    padding: 2px 0 22px;
+    margin: 0;
+
+    text-shadow: none;
+
+}
+
+.popup-loading-wrapper .popup h2 span {
+    font-size: 28px;
+}
+
+.popup-loading-wrapper .popup h2:after {
+    display: none;
+}
+
+.popup-loading-wrapper .popup h3 {
+    color: #fff;
+    line-height: 20px;
+    letter-spacing: 0;
+    padding: 0 0 21px;
+
+    text-shadow: none;
+
+    font-family: sans-serif;
+    margin: 0px;
+}
+
+.popup-loading-wrapper .popup p {
+    opacity: 0.5;
+    font-size: 16px;
+    padding: 4px 0 0;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+
+.popup-loading-wrapper .popup .lock-image {
+    width: 90px;
+    margin: 0 auto 10px;
+}
+
+.popup-loading-wrapper .popup .loading-image {
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    -webkit-animation: spin 3s linear infinite;
+    -moz-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg)
+    }
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+

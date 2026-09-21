@@ -1,0 +1,281 @@
+/*
+ * Combined tabbed location picker (Province/City/District/Village etc. in one
+ * widget instead of stacked cascading fields). Additive feature - loaded only
+ * by a shipping-address-*.php that opts in via its own $useTabbedLocationPicker
+ * flag, so pages that don't use it are completely unaffected.
+ *
+ * Markup contract (see shipping/shipping-address-id.php for a working example):
+ *   <div class="location-picker" data-location-picker data-field-order="fields_state fields_city ...">
+ *     <textarea class="location-picker-trigger" readonly></textarea>
+ *     <div class="location-picker-panel">
+ *       <div class="location-picker-tabs">
+ *         <button class="location-picker-tab" data-field="fields_state">...</button>
+ *         ...
+ *       </div>
+ *       <div class="location-picker-body">
+ *         <div class="location-picker-pane" data-pane="fields_state">...actual field...</div>
+ *         ...
+ *       </div>
+ *     </div>
+ *   </div>
+ */
+
+.location-picker {
+    position: relative;
+}
+
+/*
+ * A <textarea> (not <input>) so a long breadcrumb ("Jambi, Batang Hari,
+ * Bajubang, Bajubang") can wrap and fully show instead of clipping - see
+ * location-picker-tabs.js's resizeTrigger(), which grows/shrinks its height
+ * to fit whatever text is currently in it (no scrollbar, nothing cut off).
+ */
+.location-picker-trigger {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23343a40' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px top 14px;
+    background-size: 9px 5px;
+    padding-right: 32px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.3;
+    min-height: 2.6em;
+}
+
+/*
+ * NOTE on visibility technique: this panel (and each .location-picker-pane
+ * inside it) is hidden/shown with "visibility" + collapsed height, never
+ * with "display:none" or the [hidden] attribute. The site's own form
+ * validator (integrated.js's validateForm/checkEmptyFields) decides whether
+ * a required field still needs to be flagged empty by checking jQuery's
+ * :visible (which only looks at whether the element has a layout box -
+ * offsetWidth/offsetHeight - and does NOT count "display:none" ancestors as
+ * visible, but DOES still count "visibility:hidden" ones). Using
+ * display:none here would make an unfinished city/district/village
+ * silently invisible to that check the moment its tab isn't the active one,
+ * letting the shopper submit an incomplete address. Keeping every pane on
+ * "visibility" instead preserves the original validation behavior exactly.
+ */
+.location-picker-panel {
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background: #fff;
+    border: 1px solid #d7d7d7;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    max-height: 380px;
+    overflow: hidden;
+    z-index: 20;
+}
+
+.location-picker.open .location-picker-panel {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.location-picker-tabs {
+    display: flex;
+    flex: 0 0 auto;
+    border-bottom: 1px solid #eee;
+    background: #f6f5f5;
+}
+
+.location-picker-tab {
+    flex: 1 1 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px 6px;
+    font-size: 0.85rem;
+    color: #8a8a8a;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.location-picker-tab.active {
+    color: #121212;
+    border-bottom-color: #e2601f;
+    font-weight: 700;
+    background: #e6f3e7;
+}
+
+.location-picker-tab:disabled {
+    color: #c7c7c7;
+    cursor: not-allowed;
+}
+
+.location-picker-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 10px 12px 12px;
+}
+
+/* Collapsed (non-active) pane - see the NOTE above .location-picker-panel:
+   this must stay a "visibility" collapse, not display:none, so an empty
+   required field in it is still caught by the site's own validation. */
+.location-picker-pane.lp-collapsed {
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+}
+
+/*
+ * The real <select id="fields_state"> (still populated from states.js by
+ * the existing addStatesProvince(), and still what actually submits as
+ * "state") and every real .search <input> (city/district/village) are kept
+ * in the DOM and fully functional - just not shown. A custom list built
+ * from their data is what the shopper actually sees and clicks (the
+ * .self-suggestions list for city/district/village already IS that list;
+ * the province pane gets an equivalent one, populated in
+ * location-picker-tabs.js from #fields_state's own <option>s).
+ *
+ * This is a "visually hidden" clip, not display:none/visibility:hidden:
+ * offsetWidth/offsetHeight stay non-zero (1px), so the field remains
+ * focusable (needed - focusing city/district/village is what triggers
+ * their fetch) and still counts as jQuery :visible for the site's own
+ * required-field validation (see the .location-picker-panel note above for
+ * why that distinction matters).
+ */
+.location-picker-pane select,
+.location-picker-pane input.search {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+    background-image: none !important;
+}
+
+.location-picker-pane .self-autocomplete {
+    position: relative;
+}
+
+/* self-host-address-suggestion.js renders/positions this box as a floating
+   dropdown by default (see self-host-address-suggestion.js); inside a pane
+   it should just read as the pane's own list instead. */
+.location-picker-pane .self-suggestions {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Marks whichever row (province, or a rendered city/district/village
+   suggestion) matches that field's own current value - see
+   location-picker-tabs.js's highlightSelectedRow()/renderProvinceOptions(). */
+.location-picker-pane .self-suggestions div.lp-selected {
+    background: #fef1e8;
+    color: #643308;
+    font-weight: 700;
+}
+
+/*
+ * integrated.js's own validateForm()/inlineErrorMsg() insert a
+ * <span class="error-message"> right after whichever field failed
+ * (state/city/district/village), same as it would for any other field on
+ * the page - but these fields are hidden now (see above), so a message
+ * placed right next to one would never be seen. Hide it here;
+ * location-picker-tabs.js mirrors its text into one combined message
+ * placed after the visible summary input instead (see
+ * .location-picker-summary-error below).
+ */
+.location-picker-pane span.error-message {
+    display: none !important;
+}
+
+.location-picker-summary-error {
+    display: block;
+    color: red;
+    font-size: 14px;
+}
+
+/*
+ * Mobile: an accordion (each section's list directly under its own header)
+ * instead of a separate horizontal tab row above one shared list area -
+ * four short tab labels ("Province", "City / regency", ...) competing for a
+ * ~360px-wide row already truncate today (see .location-picker-tab's
+ * text-overflow above); stacking them full-width instead reads each one in
+ * full and gives the list itself the whole screen width to work with.
+ *
+ * This is a pure CSS reflow of the exact same markup and JS state
+ * (activeId, the "disabled"/"lp-collapsed" classes, etc.) - nothing here
+ * needs location-picker-tabs.js to know or care which layout is active.
+ * display:contents on the two desktop grouping wrappers (.location-picker-
+ * tabs, .location-picker-body) removes only their own box, hoisting their
+ * children (the 4 tab buttons, the 4 panes) up to be direct flex items of
+ * .location-picker-panel (already flex-direction:column) - "order" then
+ * interleaves them into tab/pane/tab/pane/... instead of the desktop
+ * grouping of all 4 tabs followed by all 4 panes. Both wrappers still exist
+ * and still group the SAME elements for desktop; only their layout role on
+ * this narrow a screen changes.
+ */
+@media (max-width: 600px) {
+    .location-picker-panel {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .location-picker-tabs,
+    .location-picker-body {
+        display: contents;
+    }
+
+    .location-picker-tab {
+        flex: 0 0 auto;
+        width: 100%;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+        white-space: normal;
+    }
+
+    .location-picker-tab.active {
+        background: #fef8f4;
+    }
+
+    .location-picker-pane {
+        width: 100%;
+        padding: 10px 14px 14px;
+    }
+
+    .location-picker-pane:not(.lp-collapsed) {
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Interleaves tab1, pane1, tab2, pane2, ... - :nth-of-type counts each
+       button/div among its own siblings regardless of class, and every
+       sibling in .location-picker-tabs is a .location-picker-tab (same for
+       .location-picker-pane in .location-picker-body), so this lines up
+       each tab with the one pane it actually controls. */
+    .location-picker-tab:nth-of-type(1) { order: 1; }
+    .location-picker-pane:nth-of-type(1) { order: 2; }
+    .location-picker-tab:nth-of-type(2) { order: 3; }
+    .location-picker-pane:nth-of-type(2) { order: 4; }
+    .location-picker-tab:nth-of-type(3) { order: 5; }
+    .location-picker-pane:nth-of-type(3) { order: 6; }
+    .location-picker-tab:nth-of-type(4) { order: 7; }
+    .location-picker-pane:nth-of-type(4) { order: 8; }
+}
