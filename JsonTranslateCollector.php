@@ -1,5 +1,4 @@
 <?php
-namespace app\src;
 use DeepL\Translator;
 
 class JsonCollector {
