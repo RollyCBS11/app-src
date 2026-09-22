@@ -35,10 +35,31 @@ require_once BASEPATH . '/vendor/autoload.php';
 
 use DeepL\Translator;
 
+// getenv('DEEPL_KEY') only sees the OS/Apache environment; the key lives in
+// .env, so it has to be parsed in first. Same approach as
+// KonnektiveApi::loadEnv(), duplicated here since this script has no other
+// bootstrap and runs standalone (CLI or direct browser hit).
+$envFile = BASEPATH . '/.env';
+if (is_file($envFile)) {
+    foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+        $line = trim($line);
+        if ($line === '' || $line[0] === '#' || strpos($line, '=') === false) {
+            continue;
+        }
+        list($key, $value) = array_map('trim', explode('=', $line, 2));
+        if (getenv($key) === false) {
+            putenv($key . '=' . trim($value, "\"'"));
+        }
+    }
+}
+
 // Same key/mapping as src/JsonTranslateCollector.php, kept in sync manually
 // since that class only translates one string at a time and this script
 // needs batched array translation for the ~1250 state names.
 $deepLKey = getenv('DEEPL_KEY');
+if (!$deepLKey) {
+    exit("DEEPL_KEY is not set (checked environment and {$envFile}).\n");
+}
 $deepLLanguageMap = [
     'pt-br' => 'pt-BR',
     'pt-pt' => 'pt-PT',
@@ -47,7 +68,7 @@ $deepLLanguageMap = [
 $sourceLanguage = 'en';
 $chunkSize = 50;
 
-$sourcePath = BASEPATH . "/lang/states/{$sourceLanguage}/states.json";
+$sourcePath = BASEPATH . "/src/states/{$sourceLanguage}/states.json";
 if (!file_exists($sourcePath)) {
     exit("Source file not found: {$sourcePath}\n");
 }
@@ -57,7 +78,7 @@ if (!is_array($sourceStates)) {
 }
 
 $langDir = BASEPATH . '/lang';
-$statesDir = BASEPATH . '/lang/states';
+$statesDir = BASEPATH . '/src/states';
 $languages = array_filter(scandir($langDir), function ($dir) use ($langDir, $sourceLanguage) {
     return $dir !== '.' && $dir !== '..' && $dir !== 'system' && $dir !== 'states' && $dir !== $sourceLanguage
         && is_dir($langDir . '/' . $dir);
