@@ -89,7 +89,7 @@
             var html =    '<div class="trust_handler_body">';
                 html +=    '        <a href="javascript:void(0);" id="trust_handler_overlay_close">X</a>';
                 html +=    '        <div id="trust_header">';
-                html +=    '            <img src="'+commonFilesPath()+'app-src/common/images/logo.png" alt="logo" class="corp-logo" width="150" height="56">';
+                html +=    '            <img src="'+commonFilesPath()+'src/common/images/logo.png" alt="logo" class="corp-logo" width="150" height="56">';
                 html +=    '        </div>';
                 html +=    '        <hr/>';
                 html +=    '        <div id="trust_body">';
@@ -102,7 +102,7 @@
                 html +=    '                <svg viewBox="0 0 24 24" data-value="5"  class="star"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/></svg>';
                 html +=    '            </div>  ';                          
                 html +=    '            <button id="btn-rate-submit">'+trust_obj.buttonText+'</button>';
-                html +=    '            <small>'+trust_obj.subText+' <img width="10" height="10" src="'+commonFilesPath()+'app-src/common/images/heart.svg" alt="heart"></small>';
+                html +=    '            <small>'+trust_obj.subText+' <img width="10" height="10" src="'+commonFilesPath()+'src/common/images/heart.svg" alt="heart"></small>';
                 html +=    '        </div>';
                 html +=    '    </div>';
                 //html +=    '</div>';

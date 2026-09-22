@@ -229,7 +229,7 @@
                                 var html = '';
                                 html += '<div id="app_common_modal">';
                                 html += '<div class="app_modal_body"><a href="javascript:void(0);" id="app_common_modal_close">X</a>';
-                                html += '<div class="loading-indicator" style="position:absolute;left:3.9em;"><p style="display:flex;"><img src="'+commonFilesPath()+'app-src/common/images/loading_icon.gif" style="width:25px;height:25px;"/>&nbsp;Loading content...</p></div>';
+                                html += '<div class="loading-indicator" style="position:absolute;left:3.9em;"><p style="display:flex;"><img src="'+commonFilesPath()+'src/common/images/loading_icon.gif" style="width:25px;height:25px;"/>&nbsp;Loading content...</p></div>';
                                 html += '<iframe src="' + page_url + '" frameborder="0" onload="removeLoading();"></iframe></div>';
                                 html += '</div>';
 
@@ -298,7 +298,7 @@
         form_obj.loadCommonStyles=function(){
             var styleSheet = document.createElement("link")
             styleSheet.setAttribute("id", "common_styles");
-            styleSheet.href = commonFilesPath() + "app-src/common/css/common.css?t=" + new Date().getTime();
+            styleSheet.href = commonFilesPath() + "src/common/css/common.css?t=" + new Date().getTime();
             styleSheet.rel = "stylesheet";
             if ($("#common_styles").length == 0) {
                 document.head.appendChild(styleSheet);
@@ -323,10 +323,10 @@
             var html=""
                 html+='<section id="loading-indicator" class="popup-loading-wrapper" style="display: none">';
                 html+='<div class="popup">';
-                html+='<img src="'+commonFilesPath()+'app-src/common/images/icon-lock.png" alt="" class="lock-image" />';
+                html+='<img src="'+commonFilesPath()+'src/common/images/icon-lock.png" alt="" class="lock-image" />';
                 html+='   <p>'+(window.i18nData['loading_msg_header'] || 'Please wait a moment')+'</p>';
                 html+='    <h3>'+defaultMsg+'</h3>';
-                html+='    <img src="'+commonFilesPath()+'app-src/common/images/icon-loading.png" alt="" class="loading-image" />';
+                html+='    <img src="'+commonFilesPath()+'src/common/images/icon-loading.png" alt="" class="loading-image" />';
                 html+='</div>';
                 html+='</section>';
             
@@ -518,7 +518,7 @@
 
         form_obj.loadDynamicShipFields=function(country,el){
             $("#shipping-container #loading-shipping-detail").remove();
-            $("#shipping-container").prepend("<div id='loading-shipping-detail'><img src='"+commonFilesPath()+"app-src/common/images/load-shipping.svg' alt='loading' width='70' height='70'/><div>");
+            $("#shipping-container").prepend("<div id='loading-shipping-detail'><img src='"+commonFilesPath()+"src/common/images/load-shipping.svg' alt='loading' width='70' height='70'/><div>");
             $("#shipping-container").load("shipping/shipping-address-"+country.toLowerCase()+".php?lang="+$("html").attr("lang")+"&country_code="+country.toLowerCase(), function( response, status, xhr ) {
                 if ( status == "error" && xhr.status==404 ) {
                     $("#shipping-container").load("shipping/shipping-address-us.php?lang="+$("html").attr("lang")+"&country_code="+country.toLowerCase(), function( response, status, xhr ) {
@@ -592,7 +592,7 @@
                         $.each(value, function (key, value) {
                             $.each(value, function (stateCode, stateName) {
                                 //use the DeepL-translated name for the current language when
-                                //available (see app-src/common/statesTranslator.php), else fall back to
+                                //available (see src/common/statesTranslator.php), else fall back to
                                 //the English name from states.js
                                 var translated = window.TranslatedStates
                                     && window.TranslatedStates[country]
@@ -2865,7 +2865,7 @@
             if(paySource=="GOOGLEPAY" || paySource=="APPLEPAY" || paySource=="STRIPE_KLARNA"){
                
                 $(".yes-upsell-link").each(function() {  
-                        var image='<img id="stripeBtnIcon" src="'+commonFilesPath()+'app-src/common/images/'+paySource.toLowerCase()+'.png" style="width:136px!important; height: auto;"/>';
+                        var image='<img id="stripeBtnIcon" src="'+commonFilesPath()+'src/common/images/'+paySource.toLowerCase()+'.png" style="width:136px!important; height: auto;"/>';
                         $(this).html(image).addClass("replacedBtn").attr("style","min-width:261px;padding:15px 5px!important;background:black!important;border-radius:4px!important;border-bottom:none!important;box-shadow: none!important;display:flex;justify-content:center;");
                 });
                

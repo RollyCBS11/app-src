@@ -106,7 +106,7 @@
                 html += '           <div class="klarna-button-stripe btn" id="klarna-submit" style="width: 100%; background: #000; border-radius: 4px; border: 1px solid #000; padding: 10px; text-align: center; display: flex; justify-content: center; align-items: center; cursor: pointer;" role="button" aria-label="Continue with Klarna">';
                 html += '               <span style="display: inline-flex; align-items: center; gap: 8px;">';
                 html += '               <span style="font-size: 16px; font-weight: 500; color: #fff;">'+klarna_obj.submitText+'</span>';
-                html += '               <img loading="lazy" src="'+commonFilesPath()+'app-src/common/images/Klarna_badge_32px.png" alt="Klarna" style="height: 24px;">';
+                html += '               <img loading="lazy" src="'+commonFilesPath()+'src/common/images/Klarna_badge_32px.png" alt="Klarna" style="height: 24px;">';
                 html += '           </span></div>';
                 html += '       </div>';
                 html += '     </div>';
