@@ -1,8 +1,8 @@
 <?php
 if (!isset($OfferApi)) { include_once("../integrated/setup.php"); }
-use ddm\Backend\Translate\JsonTranslateCollector;
+include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 
-$collector_sh = new JsonTranslateCollector(
+$collector_sh = new JsonCollector(
   targetLanguage: $OfferApi->targetLanguage,
   pageName: "checkout-shipping"
 );
