@@ -1,0 +1,20 @@
+{
+    "town_city_hk": "Distrito",
+    "p_address_1_hk": "Unidade\/Andar\/Edif\u00edcio",
+    "p_address_2_hk": "Rua\/Estrada",
+    "house_building_no_hk": "N\u00famero da casa\/pr\u00e9dio",
+    "state_hk": "Estado\/Prov\u00edncia",
+    "p_state_hk": "Selecione o estado \/ prov\u00edncia",
+    "zip_hk": "CEP",
+    "p_zip_hk": "C\u00f3digo postal",
+    "address_1": "Endere\u00e7o 1",
+    "p_address_1": "Endere\u00e7o",
+    "address_2": "Endere\u00e7o 2 (opcional)",
+    "p_address_2": "Apartamento, su\u00edte, unidade, etc.",
+    "town_city": "Cidade",
+    "p_town_city": "Cidade",
+    "state": "Estado\/Prov\u00edncia",
+    "p_state": "Selecione o estado\/prov\u00edncia",
+    "zip": "CEP",
+    "p_zip": "C\u00f3digo postal"
+}
