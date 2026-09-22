@@ -1,6 +1,4 @@
 <?php
-namespace app\src;
-
 if (session_status() != PHP_SESSION_ACTIVE) {
     session_cache_limiter('nocache');	
     session_start();
@@ -9,9 +7,20 @@ if (session_status() != PHP_SESSION_ACTIVE) {
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
 date_default_timezone_set('America/New_York');
 
-use app\src\KonnektiveApi;
+$serverName_ = $_SERVER['SERVER_NAME'] ?? ''; 
+$repoName_= "";
+  
+// If running on localhost or 127.0.0.1 → development
+if (in_array($serverName_, ['localhost', '127.0.0.1','bs-local.com'])) {      
+    $repoName_="/".basename(dirname(__DIR__));
+} 
+
+define("BASEPATH_",$_SERVER['DOCUMENT_ROOT'].$repoName_);
+
+include_once("KonnektiveApi.php");
+require_once (BASEPATH_.'/vendor/autoload.php'); // Stripe SDK
 use Stichoza\GoogleTranslate\GoogleTranslate;
-use DeepL\Translator;
+use DeepL\Translator; 
 
 class OfferApi extends KonnektiveApi {
 	

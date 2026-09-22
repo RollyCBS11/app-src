@@ -1,6 +1,4 @@
 <?php
-namespace app\src;
-
 class KonnektiveApi {
 
 	private $loginId;
