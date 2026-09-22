@@ -20,7 +20,7 @@
 // each field's own suggestions box closing with a value now in it) to
 // decide which tab to show next and what to display in the summary input.
 //
-// Opt-in markup contract, see shipping/shipping-address-id.php:
+// Opt-in markup contract, see src/shipping/shipping-address-id.php:
 //   <div class="location-picker" data-location-picker
 //        data-field-order="fields_state fields_city fields_district fields_village">
 //     <input class="location-picker-trigger" readonly>

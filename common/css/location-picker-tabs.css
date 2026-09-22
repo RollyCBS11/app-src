@@ -4,7 +4,7 @@
  * by a shipping-address-*.php that opts in via its own $useTabbedLocationPicker
  * flag, so pages that don't use it are completely unaffected.
  *
- * Markup contract (see shipping/shipping-address-id.php for a working example):
+ * Markup contract (see src/shipping/shipping-address-id.php for a working example):
  *   <div class="location-picker" data-location-picker data-field-order="fields_state fields_city ...">
  *     <textarea class="location-picker-trigger" readonly></textarea>
  *     <div class="location-picker-panel">

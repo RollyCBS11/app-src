@@ -3,7 +3,7 @@ if (!isset($OfferApi)) { include_once("../../integrated/setup.php"); }
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 $collector_sh = new JsonCollector(
   targetLanguage: $OfferApi->targetLanguage,
-  pageName: "checkout"
+  pageName: "checkout-shipping"
 );
 
 $country="_mx";

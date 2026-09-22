@@ -131,9 +131,11 @@ class JsonCollector {
                     'ignoreTags' => "nt"
                 ];
 
-        if(strtolower($targetLanguage)=="tl" || strtolower($targetLanguage)=="da" || strtolower($targetLanguage)=="pl" || strtolower($targetLanguage)=="hu" || strtolower($targetLanguage)=="cs" || strtolower($targetLanguage)=="it" || strtolower($targetLanguage)=="fi" || strtolower($targetLanguage)=="es" || strtolower($targetLanguage)=="fr" || strtolower($targetLanguage)=="de" || strtolower($targetLanguage)=="nl" || strtolower($targetLanguage)=="sv" || strtolower($targetLanguage)=="no" || strtolower($targetLanguage)=="ro" || strtolower($targetLanguage)=="sk" || strtolower($targetLanguage)=="sl" || strtolower($targetLanguage)=="et" || strtolower($targetLanguage)=="lv" || strtolower($targetLanguage)=="lt"){
+        $noGlossaryLangs = ['tl','da','pl','hu','cs','it','fi','es','fr','de','nl','sv','no','ro','sk','sl','et','lv','lt','vi','id','ca','ar', 'ro'];
+        if(in_array(strtolower($targetLanguage), $noGlossaryLangs)){
             unset($translateSettings['glossary']);
         }
+        
         try {
             $result = $translator->translateText(
                 $text,
@@ -300,7 +302,7 @@ class JsonCollector {
             && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
     }
 
-    // Files like shipping/shipping-address-*.php are fetched directly via
+    // Files like src/shipping/shipping-address-*.php are fetched directly via
     // jQuery .load() (checkout.js's loadDynamicShipFields) and injected into
     // a container on the checkout page, rather than navigated to. For that
     // AJAX case, $_SERVER['REQUEST_URI'] is the fragment's own URL, so
