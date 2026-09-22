@@ -1670,7 +1670,7 @@
             if(param.transaction_id==""){
                 if (EF.urlParameter("affid2")) {
                     EF.click({
-                            tracking_domain: "https://www.smartbuy4u.club",
+                            tracking_domain: $("#affiliate_tracking_url").val() || "https://www.smartbuy4u.club",
                             offer_id: EF.urlParameter("oid2"),
                             affiliate_id: EF.urlParameter("affid2"),
                             sub1: EF.urlParameter("sub1"),
@@ -1696,7 +1696,7 @@
                             }
 
                             EF.click({
-                                tracking_domain: "https://www.b04jdmd.com",
+                                tracking_domain: $("#ddm_tracking_url").val() || "https://www.b04jdmd.com",
                                 offer_id: param.oid,
                                 affiliate_id: param.affId,
                                 sub1: param.sub1,
@@ -1729,7 +1729,7 @@
                     });
                 } else {
                         EF.click({
-                            tracking_domain: "https://www.b04jdmd.com",
+                            tracking_domain: $("#ddm_tracking_url").val() || "https://www.b04jdmd.com",
                             offer_id: param.oid,
                             affiliate_id: param.affId,
                             sub1: param.sub1,
