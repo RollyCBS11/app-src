@@ -519,9 +519,9 @@
         form_obj.loadDynamicShipFields=function(country,el){
             $("#shipping-container #loading-shipping-detail").remove();
             $("#shipping-container").prepend("<div id='loading-shipping-detail'><img src='"+commonFilesPath()+"src/common/images/load-shipping.svg' alt='loading' width='70' height='70'/><div>");
-            $("#shipping-container").load("shipping/shipping-address-"+country.toLowerCase()+".php?lang="+$("html").attr("lang")+"&country_code="+country.toLowerCase(), function( response, status, xhr ) {
+            $("#shipping-container").load("src/shipping/shipping-address-"+country.toLowerCase()+".php?lang="+$("html").attr("lang")+"&country_code="+country.toLowerCase(), function( response, status, xhr ) {
                 if ( status == "error" && xhr.status==404 ) {
-                    $("#shipping-container").load("shipping/shipping-address-us.php?lang="+$("html").attr("lang")+"&country_code="+country.toLowerCase(), function( response, status, xhr ) {
+                    $("#shipping-container").load("src/shipping/shipping-address-us.php?lang="+$("html").attr("lang")+"&country_code="+country.toLowerCase(), function( response, status, xhr ) {
                         if (status != "error"){ 
                             form_obj.reqEventAfterShipLoaded(el, country);
                         }else{                           
