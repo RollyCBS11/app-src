@@ -1,9 +1,9 @@
 <?php
-include_once("../integrated/setup.php");
+if (!isset($OfferApi)) { include_once("../integrated/setup.php"); }
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
-$collector = new JsonCollector(
+$collector_sh = new JsonCollector(
   targetLanguage: $OfferApi->targetLanguage,
-  pageName: "checkout"
+  pageName: "checkout-shipping"
 );
 $country = "ro";
 ?>
@@ -24,9 +24,9 @@ $country = "ro";
 
 <!-- Județ (County) -->
 <div class="mb-3">
-    <label class="p cart-input-label" for="fields_state"><?=$collector->translate("state_".$country, "Județ") ?></label>
+    <label class="p cart-input-label" for="fields_state"><?=$collector_sh->translate("state_".$country, "Județ") ?></label>
     <div>
-        <select id="fields_state" name="state" class="cart-input p" required="required"  toSearch="state_code" onplaceholder="<?=$collector->translate("p_state_new_".$country, "Select county", false) ?>">
+        <select id="fields_state" name="state" class="cart-input p" required="required"  toSearch="state_code" onplaceholder="<?=$collector_sh->translate("p_state_new_".$country, "Select county", false) ?>">
           
         </select>
     </div>
@@ -35,41 +35,41 @@ $country = "ro";
 <!-- Localitate + Cod poștal side by side (2/3 + 1/3) -->
 <div class="row align-items-start mb-3">
     <div class="col-7">
-        <label class="p cart-input-label" for="fields_city"><?=$collector->translate("town_city_".$country, "Localitate") ?></label>
+        <label class="p cart-input-label" for="fields_city"><?=$collector_sh->translate("town_city_".$country, "Localitate") ?></label>
         <div class="self-autocomplete">       
             <input id="fields_city" name="city" siruta_id="" class="cart-input p search" 
                 disabled
                 toSearch="city" linkElement="fields_zip"  trigger="click focus keyup" value="" type="text" 
-                placeholder="<?=$collector->translate("p_town_city_2_new_".$country, "Select county first") ?>" 
-                onEnabled="<?=$collector->translate("p_town_city_enable_new_".$country, "Select locality") ?>" 
-                onPlaceholder="<?=$collector->translate("p_town_city_2_new_".$country, "Select county first",false) ?>"required="required">
+                placeholder="<?=$collector_sh->translate("p_town_city_2_new_".$country, "Select county first") ?>" 
+                onEnabled="<?=$collector_sh->translate("p_town_city_enable_new_".$country, "Select locality") ?>" 
+                onPlaceholder="<?=$collector_sh->translate("p_town_city_2_new_".$country, "Select county first",false) ?>"required="required">
             <div class="self-suggestions" style="display:none;"></div>
         </div>
     </div>
     <div class="col-5">
-        <label class="p cart-input-label" for="fields_zip"><?=$collector->translate("zip_".$country, "Cod poștal") ?></label>
+        <label class="p cart-input-label" for="fields_zip"><?=$collector_sh->translate("zip_".$country, "Cod poștal") ?></label>
         <div>
-            <input id="fields_zip" disabled name="zip" class="cart-input p" value="" type="text" placeholder="<?=$collector->translate("p_zip_".$country, "Ex. 400335") ?>" required="required" maxlength="6" inputmode="numeric">
-            <small id="fields_zip_hint" class="hint"><a href="https://www.posta-romana.ro/cauta-cod-postal.html" style="color:blue;font-size:0.9em;" target="_blank" rel="noopener"><?=$collector->translate("hint_zip_".$country, "Search by ZIP code") ?></a></small></div>
+            <input id="fields_zip" disabled name="zip" class="cart-input p" value="" type="text" placeholder="<?=$collector_sh->translate("p_zip_".$country, "Ex. 400335") ?>" required="required" maxlength="6" inputmode="numeric">
+            <small id="fields_zip_hint" class="hint"><a href="https://www.posta-romana.ro/cauta-cod-postal.html" style="color:blue;font-size:0.9em;" target="_blank" rel="noopener"><?=$collector_sh->translate("hint_zip_".$country, "Search by ZIP code") ?></a></small></div>
         </div>
     </div>
 </div>
 
 <!-- Stradă și număr -->
 <div class="mb-3">
-    <label class="p cart-input-label" for="fields_address1"><?=$collector->translate("address_1_".$country, "Stradă și număr") ?></label>
+    <label class="p cart-input-label" for="fields_address1"><?=$collector_sh->translate("address_1_".$country, "Stradă și număr") ?></label>
     <div>
-        <input id="fields_address1" name="address 1" class="cart-input p" value="" type="text" placeholder="<?=$collector->translate("p_address_1_".$country, "Ex. Str. Mihai Eminescu, nr. 12") ?>" required="required">
+        <input id="fields_address1" name="address 1" class="cart-input p" value="" type="text" placeholder="<?=$collector_sh->translate("p_address_1_".$country, "Ex. Str. Mihai Eminescu, nr. 12") ?>" required="required">
     </div>
 </div>
 
 <!-- Bloc / Scară / Etaj / Ap. — combined into a single optional field -->
 <div class="mb-3">
-    <label class="p cart-input-label" for="fields_address2"><?=$collector->translate("apartment_detial_".$country, "Apartment details (optional)") ?></label>
+    <label class="p cart-input-label" for="fields_address2"><?=$collector_sh->translate("apartment_detial_".$country, "Apartment details (optional)") ?></label>
     <div>
-        <input id="fields_address2" name="address 2" class="cart-input p" value="" type="text" placeholder="<?=$collector->translate("p_bloc_scara_etaj_ap_".$country, "Ex. Bl. A3, Sc. B, Et. 4, Ap. 12") ?>">
+        <input id="fields_address2" name="address 2" class="cart-input p" value="" type="text" placeholder="<?=$collector_sh->translate("p_bloc_scara_etaj_ap_".$country, "Ex. Bl. A3, Sc. B, Et. 4, Ap. 12") ?>">
     </div>
-    <small class="p" style="color:#888;font-size:0.85em;"><?=$collector->translate("bloc_hint_".$country, "Doar dacă locuiești la bloc — opțional.") ?></small>
+    <small class="p" style="color:#888;font-size:0.85em;"><?=$collector_sh->translate("bloc_hint_".$country, "Doar dacă locuiești la bloc — opțional.") ?></small>
 </div>
 
 <script>
@@ -96,3 +96,4 @@ $country = "ro";
     },400)
 })();
 </script>
+<?php $collector_sh->saveTranslation(); ?>

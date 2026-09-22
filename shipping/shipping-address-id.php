@@ -1,9 +1,9 @@
 <?php
-include_once("../integrated/setup.php");
+if (!isset($OfferApi)) { include_once("../integrated/setup.php"); }
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
-$collector = new JsonCollector(
+$collector_sh = new JsonCollector(
   targetLanguage: $OfferApi->targetLanguage,
-  pageName: "checkout"
+  pageName: "checkout-shipping"
 );
 
 $country="_id";
@@ -28,7 +28,7 @@ $useTabbedLocationPicker = true;
 </style>
 <?php if($OfferApi->targetLanguage=="zh-hant" || $OfferApi->targetLanguage=="zh-hans"){ ?>
             <div class="tw-mb-2 tw-flex tw-gap-1 tw-text-[#4D4D4D]" style="font-size:0.75em; padding: 7px;border: 1px solid #f6ca79;background: #fef6e9;line-height: 1.3;" >
-                <span>&#x2139;</span><span><?= $collector->translate("type_english_us", "Please fill in the following shipping information in English.") ?></span>
+                <span>&#x2139;</span><span><?= $collector_sh->translate("type_english_us", "Please fill in the following shipping information in English.") ?></span>
             </div>
 <?php } ?>
 
@@ -38,22 +38,22 @@ $useTabbedLocationPicker = true;
 <link rel="stylesheet" href="<?= REPONAME ?>/common/css/location-picker-tabs.css?t=1789684701118">
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="location_picker_display_id"><?= $collector->translate("location_label".$country, "Province, City / Regency, District, Village"); ?></label>
+    <label class="p cart-input-label" for="location_picker_display_id"><?= $collector_sh->translate("location_label".$country, "Province, City / Regency, District, Village"); ?></label>
     <div class="location-picker" data-location-picker data-field-order="fields_state fields_city fields_district fields_village">
         <textarea type="text" id="location_picker_display_id" class="cart-input p location-picker-trigger" readonly autocomplete="off"
-               placeholder="<?= $collector->translate("location_placeholder".$country, "Select province, city / regency, district and village"); ?>"></textarea>
+               placeholder="<?= $collector_sh->translate("location_placeholder".$country, "Select province, city / regency, district and village"); ?>"></textarea>
 
         <div class="location-picker-panel">
             <div class="location-picker-tabs">
-                <button type="button" class="location-picker-tab active" data-field="fields_state"><?= $collector->translate("state".$country, "Province"); ?></button>
-                <button type="button" class="location-picker-tab" data-field="fields_city" disabled><?=$collector->translate("town_city".$country, "City / regency"); ?></button>
-                <button type="button" class="location-picker-tab" data-field="fields_district" disabled><?=$collector->translate("county".$country, "District") ?></button>
-                <button type="button" class="location-picker-tab" data-field="fields_village" disabled><?=$collector->translate("ward".$country, "Sub-district / village") ?></button>
+                <button type="button" class="location-picker-tab active" data-field="fields_state"><?= $collector_sh->translate("state".$country, "Province"); ?></button>
+                <button type="button" class="location-picker-tab" data-field="fields_city" disabled><?=$collector_sh->translate("town_city".$country, "City / regency"); ?></button>
+                <button type="button" class="location-picker-tab" data-field="fields_district" disabled><?=$collector_sh->translate("county".$country, "District") ?></button>
+                <button type="button" class="location-picker-tab" data-field="fields_village" disabled><?=$collector_sh->translate("ward".$country, "Sub-district / village") ?></button>
             </div>
             <div class="location-picker-body">
                 <div class="location-picker-pane" data-pane="fields_state">
                     <select id="fields_state" name="state" toSearch="state_code" class="cart-input p" required="required">
-                        <option value=""><?= $collector->translate("p_state".$country, "Select Province"); ?></option>
+                        <option value=""><?= $collector_sh->translate("p_state".$country, "Select Province"); ?></option>
                     </select>
                     <div class="self-suggestions" data-role="province-list"></div>
                 </div>
@@ -61,7 +61,7 @@ $useTabbedLocationPicker = true;
                 <div class="location-picker-pane lp-collapsed" data-pane="fields_city">
                     <div class="self-autocomplete">
                         <input id="fields_city"
-                               onEnabled="<?=$collector->translate("city_onenabled_".$country, "Select city") ?>"
+                               onEnabled="<?=$collector_sh->translate("city_onenabled_".$country, "Select city") ?>"
                                trigger="click focus keyup"
                                disabled
                                readonly
@@ -74,8 +74,8 @@ $useTabbedLocationPicker = true;
                                class="cart-input p search"
                                value=""
                                type="text"
-                               onPlaceholder="<?= $collector->translate("p_town_city_".$country, "Select province first",false); ?>"
-                               placeholder="<?= $collector->translate("p_town_city_".$country, "Select province first",false); ?>"
+                               onPlaceholder="<?= $collector_sh->translate("p_town_city_".$country, "Select province first",false); ?>"
+                               placeholder="<?= $collector_sh->translate("p_town_city_".$country, "Select province first",false); ?>"
                                toenableel="fields_district" required="required">
                         <div class="self-suggestions" style="display:none;"></div>
                     </div>
@@ -84,15 +84,15 @@ $useTabbedLocationPicker = true;
                 <div class="location-picker-pane lp-collapsed" data-pane="fields_district">
                     <div class="self-autocomplete">
                         <input id="fields_district"
-                            onEnabled="<?=$collector->translate("district_onenabled_".$country, "Select district") ?>"
+                            onEnabled="<?=$collector_sh->translate("district_onenabled_".$country, "Select district") ?>"
                             trigger="click focus"
                             disabled
                             readonly
                             toSearch="district"
                             class="cart-input p search"
                             value="" type="text"
-                            placeholder="<?=$collector->translate("p_county_on_".$country, "Select city first",false) ?>"
-                            onPlaceholder="<?=$collector->translate("p_county_on_".$country, "Select city first",false) ?>"
+                            placeholder="<?=$collector_sh->translate("p_county_on_".$country, "Select city first",false) ?>"
+                            onPlaceholder="<?=$collector_sh->translate("p_county_on_".$country, "Select city first",false) ?>"
                             toenableel="fields_village"
                             required="required">
                         <div class="self-suggestions" style="display:none;"></div>
@@ -102,13 +102,13 @@ $useTabbedLocationPicker = true;
                 <div class="location-picker-pane lp-collapsed" data-pane="fields_village">
                     <div class="self-autocomplete">
                         <input id="fields_village"
-                            onEnabled="<?=$collector->translate("village_onenabled_".$country, "Select sub-district / village") ?>"
+                            onEnabled="<?=$collector_sh->translate("village_onenabled_".$country, "Select sub-district / village") ?>"
                             disabled readonly trigger="click focus"
                             toSearch="village"
                             linkElement="fields_zip"
                             name="ward" class="cart-input p search" value="" type="text"
-                            placeholder="<?=$collector->translate("p_ward_on_".$country, "Select district first",false) ?>"
-                            onPlaceholder="<?=$collector->translate("p_ward_on_".$country, "Select district first",false) ?>"
+                            placeholder="<?=$collector_sh->translate("p_ward_on_".$country, "Select district first",false) ?>"
+                            onPlaceholder="<?=$collector_sh->translate("p_ward_on_".$country, "Select district first",false) ?>"
                             required="required">
                         <div class="self-suggestions" style="display:none;"></div>
                     </div>
@@ -119,28 +119,28 @@ $useTabbedLocationPicker = true;
 </div>
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="fields_zip" label="Zip/Postal Code"><?= $collector->translate("zip".$country, "Postal code"); ?></label>
+    <label class="p cart-input-label" for="fields_zip" label="Zip/Postal Code"><?= $collector_sh->translate("zip".$country, "Postal code"); ?></label>
     <div>
-        <input id="fields_zip" readonly name="zip" class="cart-input p" value="" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="<?= $collector->translate("p_zip".$country, "Select address first"); ?>" required="required">
+        <input id="fields_zip" readonly name="zip" class="cart-input p" value="" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="<?= $collector_sh->translate("p_zip".$country, "Select address first"); ?>" required="required">
     </div>
 </div>
 
 <?php else: ?>
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="fields_state" label="State/Province"><?= $collector->translate("state".$country, "Province"); ?></label>
+    <label class="p cart-input-label" for="fields_state" label="State/Province"><?= $collector_sh->translate("state".$country, "Province"); ?></label>
     <div>
         <select id="fields_state" name="state" toSearch="state_code" class="cart-input p" required="required">
-            <option value=""><?= $collector->translate("p_state".$country, "Select Province"); ?></option>
+            <option value=""><?= $collector_sh->translate("p_state".$country, "Select Province"); ?></option>
         </select>
     </div>
 </div>
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="fields_city" label="Town/City"><?=$collector->translate("town_city".$country, "City / regency"); ?></label>
+    <label class="p cart-input-label" for="fields_city" label="Town/City"><?=$collector_sh->translate("town_city".$country, "City / regency"); ?></label>
     <div class="self-autocomplete">
         <input id="fields_city"
-               onEnabled="<?=$collector->translate("city_onenabled_".$country, "Select city") ?>"
+               onEnabled="<?=$collector_sh->translate("city_onenabled_".$country, "Select city") ?>"
                trigger="click focus keyup"
                disabled
                readonly
@@ -153,26 +153,26 @@ $useTabbedLocationPicker = true;
                class="cart-input p search"
                value=""
                type="text"
-               onPlaceholder="<?= $collector->translate("p_town_city_".$country, "Select province first",false); ?>"
-               placeholder="<?= $collector->translate("p_town_city_".$country, "Select province first",false); ?>"
+               onPlaceholder="<?= $collector_sh->translate("p_town_city_".$country, "Select province first",false); ?>"
+               placeholder="<?= $collector_sh->translate("p_town_city_".$country, "Select province first",false); ?>"
                toenableel="fields_district" required="required">
         <div class="self-suggestions" style="display:none;"></div>
     </div>
 </div>
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="fields_district"><?=$collector->translate("county".$country, "District") ?></label>
+    <label class="p cart-input-label" for="fields_district"><?=$collector_sh->translate("county".$country, "District") ?></label>
     <div class="self-autocomplete">
         <input id="fields_district"
-            onEnabled="<?=$collector->translate("district_onenabled_".$country, "Select district") ?>"
+            onEnabled="<?=$collector_sh->translate("district_onenabled_".$country, "Select district") ?>"
             trigger="click focus"
             disabled
             readonly
             toSearch="district"
             class="cart-input p search"
             value="" type="text"
-            placeholder="<?=$collector->translate("p_county_on_".$country, "Select city first",false) ?>"
-            onPlaceholder="<?=$collector->translate("p_county_on_".$country, "Select city first",false) ?>"
+            placeholder="<?=$collector_sh->translate("p_county_on_".$country, "Select city first",false) ?>"
+            onPlaceholder="<?=$collector_sh->translate("p_county_on_".$country, "Select city first",false) ?>"
             toenableel="fields_village"
             required="required">
         <div class="self-suggestions" style="display:none;"></div>
@@ -184,16 +184,16 @@ $useTabbedLocationPicker = true;
         <div class="row mb-n3 align-items-start ">
             <div class="col-sm-8 pr-sm-2">
                 <div class="mb-3">
-                    <label class="p cart-input-label" for="fields_village"><?=$collector->translate("ward".$country, "Sub-district / village") ?></label>
+                    <label class="p cart-input-label" for="fields_village"><?=$collector_sh->translate("ward".$country, "Sub-district / village") ?></label>
                     <div class="self-autocomplete">
                         <input id="fields_village"
-                            onEnabled="<?=$collector->translate("village_onenabled_".$country, "Select sub-district / village") ?>"
+                            onEnabled="<?=$collector_sh->translate("village_onenabled_".$country, "Select sub-district / village") ?>"
                             disabled readonly trigger="click focus"
                             toSearch="village"
                             linkElement="fields_zip"
                             name="ward" class="cart-input p search" value="" type="text"
-                            placeholder="<?=$collector->translate("p_ward_on_".$country, "Select district first",false) ?>"
-                            onPlaceholder="<?=$collector->translate("p_ward_on_".$country, "Select district first",false) ?>"
+                            placeholder="<?=$collector_sh->translate("p_ward_on_".$country, "Select district first",false) ?>"
+                            onPlaceholder="<?=$collector_sh->translate("p_ward_on_".$country, "Select district first",false) ?>"
                             required="required">
                         <div class="self-suggestions" style="display:none;"></div>
                     </div>
@@ -201,9 +201,9 @@ $useTabbedLocationPicker = true;
             </div>
             <div class="col-sm-4">
                 <div class="mb-3">
-                    <label class="p cart-input-label" for="fields_zip" label="Zip/Postal Code"><?= $collector->translate("zip".$country, "Postal code"); ?></label>
+                    <label class="p cart-input-label" for="fields_zip" label="Zip/Postal Code"><?= $collector_sh->translate("zip".$country, "Postal code"); ?></label>
                     <div>
-                        <input id="fields_zip" readonly name="zip" class="cart-input p" value="" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="<?= $collector->translate("p_zip".$country, "Select address first"); ?>" required="required">
+                        <input id="fields_zip" readonly name="zip" class="cart-input p" value="" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="<?= $collector_sh->translate("p_zip".$country, "Select address first"); ?>" required="required">
                     </div>
                 </div>
             </div>
@@ -214,23 +214,23 @@ $useTabbedLocationPicker = true;
 <?php endif; ?>
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="address 1" label="Street"><?=$collector->translate("address_1".$country, "Street and number") ?></label>
+    <label class="p cart-input-label" for="address 1" label="Street"><?=$collector_sh->translate("address_1".$country, "Street and number") ?></label>
     <div>
-        <input id="fields_address1" name="address 1" class="cart-input p" value="" type="text" placeholder="<?=$collector->translate("p_address_1".$country, "Street and number"); ?>" required="required">
+        <input id="fields_address1" name="address 1" class="cart-input p" value="" type="text" placeholder="<?=$collector_sh->translate("p_address_1".$country, "Street and number"); ?>" required="required">
     </div>
 </div>
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="fields_apt_unit"><?=$collector->translate("apt_unit".$country, "Block / unit / floor (optional)") ?></label>
+    <label class="p cart-input-label" for="fields_apt_unit"><?=$collector_sh->translate("apt_unit".$country, "Block / unit / floor (optional)") ?></label>
     <div>
-        <input id="fields_apt_unit" name="apt_unit" class="cart-input p" value="" type="text" optional placeholder="<?=$collector->translate("p_apt_unit".$country, "Block / unit / floor (optional)") ?>">
+        <input id="fields_apt_unit" name="apt_unit" class="cart-input p" value="" type="text" optional placeholder="<?=$collector_sh->translate("p_apt_unit".$country, "Block / unit / floor (optional)") ?>">
     </div>
 </div>
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="fields_rt_rw"><?=$collector->translate("rt_rw".$country, "RT/RW (optional)") ?></label>
+    <label class="p cart-input-label" for="fields_rt_rw"><?=$collector_sh->translate("rt_rw".$country, "RT/RW (optional)") ?></label>
     <div>
-        <input id="fields_rt_rw" optional class="cart-input p" value="" type="text" pattern="[0-9]{1,3} / [0-9]{1,3}" maxlength="9" placeholder="<?=$collector->translate("p_rt_rw".$country, "e.g. 005 / 002") ?>">
+        <input id="fields_rt_rw" optional class="cart-input p" value="" type="text" pattern="[0-9]{1,3} / [0-9]{1,3}" maxlength="9" placeholder="<?=$collector_sh->translate("p_rt_rw".$country, "e.g. 005 / 002") ?>">
     </div>
     <!-- fields_rt/fields_rw stay in the DOM (hidden) purely so the order-import
          API keeps getting the separate rt/rw values it already expects (see
@@ -348,4 +348,5 @@ $useTabbedLocationPicker = true;
 <?php if ($useTabbedLocationPicker): ?>
     <script src="<?= REPONAME ?>/common/js/location-picker-tabs.js?t=1789684701118" defer></script>
 <?php endif; ?>
+<?php $collector_sh->saveTranslation(); ?>
 

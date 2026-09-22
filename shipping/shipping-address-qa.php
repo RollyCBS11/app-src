@@ -1,19 +1,19 @@
 <?php
-include_once("../integrated/setup.php");
+if (!isset($OfferApi)) { include_once("../integrated/setup.php"); }
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
-$collector = new JsonCollector(
+$collector_sh = new JsonCollector(
   targetLanguage: $OfferApi->targetLanguage,
-  pageName: "checkout"
+  pageName: "checkout-shipping"
 );
 
 $country="qa";
 ?>
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="state" label="municipality/city"><?= $collector->translate("city_municipality_".$country, "City / Municipality"); ?></label>
+    <label class="p cart-input-label" for="state" label="municipality/city"><?= $collector_sh->translate("city_municipality_".$country, "City / Municipality"); ?></label>
     <div>
         <select id="fields_state" name="state" class="cart-input p">
-            <option value=""><?= $collector->translate("city_select_".$country, "Select"); ?></option>
+            <option value=""><?= $collector_sh->translate("city_select_".$country, "Select"); ?></option>
         </select>
     </div>
 </div>
@@ -28,48 +28,48 @@ $country="qa";
         <div class="row mb-n3 align-items-start ">
              <div class="col-sm-4 pr-sm-2">
                 <div class="mb-3 ">
-                    <label class="p cart-input-label" for="area" label="Area"><?=$collector->translate("zone_".$country, "Zone"); ?></label>
+                    <label class="p cart-input-label" for="area" label="Area"><?=$collector_sh->translate("zone_".$country, "Zone"); ?></label>
                     <div>
                         <input id="_area" name="area" el-required class="cart-input p" inputmode="numeric" 
                                 pattern="[0-9]*" 
-                                  type="text" placeholder="<?= $collector->translate("p_area__".$country, "Ex: 55"); ?>" required="required">
+                                  type="text" placeholder="<?= $collector_sh->translate("p_area__".$country, "Ex: 55"); ?>" required="required">
                     </div>
                 </div>
             </div>
             <div class="col-sm-4 pr-sm-2  ">
                 <div class="mb-3 ">
-                    <label class="p cart-input-label" for="Street" label="Street"><?=$collector->translate("street_".$country, "Street"); ?></label>
+                    <label class="p cart-input-label" for="Street" label="Street"><?=$collector_sh->translate("street_".$country, "Street"); ?></label>
                     <div>
-                        <input id="_street" name="Street" el-required class="cart-input p" value="" type="text" placeholder="<?= $collector->translate("p_street__".$country, "Ex: 850"); ?>" required="required">
+                        <input id="_street" name="Street" el-required class="cart-input p" value="" type="text" placeholder="<?= $collector_sh->translate("p_street__".$country, "Ex: 850"); ?>" required="required">
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="mb-3">
-                    <label class="p cart-input-label" for="building" label="building_no"><?= $collector->translate("building_".$country, "Building"); ?></label>
+                    <label class="p cart-input-label" for="building" label="building_no"><?= $collector_sh->translate("building_".$country, "Building"); ?></label>
                     <div>
-                        <input id="_building" name="building" el-required  class="cart-input p" value="" type="text" placeholder="<?= $collector->translate("p_building__".$country, "Ex: 25"); ?>" required="required">
+                        <input id="_building" name="building" el-required  class="cart-input p" value="" type="text" placeholder="<?= $collector_sh->translate("p_building__".$country, "Ex: 25"); ?>" required="required">
                     </div>
                 </div>
             </div>
           
            
         </div>
-        <small><?=$collector->translate("helper_text_new_zone_".$country, "The zone, street and building numbers are on the blue plate outside the building, or search free at <a class='tw-text-[#387FF5]' target='_blank' href='https://qnas.qa'>qnas.qa</a>");?></small>
+        <small><?=$collector_sh->translate("helper_text_new_zone_".$country, "The zone, street and building numbers are on the blue plate outside the building, or search free at <a class='tw-text-[#387FF5]' target='_blank' href='https://qnas.qa'>qnas.qa</a>");?></small>
     </div>
 </div>
 <div class="mb-3">
-    <label class="p cart-input-label" for="address 2" label="Unit / Floor / Apartment"><?=$collector->translate("unit__".$country, "Unit / Floor / Apartment (optional)") ?></label>
+    <label class="p cart-input-label" for="address 2" label="Unit / Floor / Apartment"><?=$collector_sh->translate("unit__".$country, "Unit / Floor / Apartment (optional)") ?></label>
     <div>       
-        <input id="_unit" name="address 2" class="cart-input p" value="" type="text" placeholder="<?=$collector->translate("p_unit__".$country, "Ex: Apartment 12, 4th floor"); ?>" required="required">
+        <input id="_unit" name="address 2" class="cart-input p" value="" type="text" placeholder="<?=$collector_sh->translate("p_unit__".$country, "Ex: Apartment 12, 4th floor"); ?>" required="required">
     </div>
 </div>
 
 <div class="mb-3">
-    <label class="p cart-input-label" for="street name" label="Street Name"><?=$collector->translate("street_name__".$country, "Street Name/ Area (optional)"); ?></label>
+    <label class="p cart-input-label" for="street name" label="Street Name"><?=$collector_sh->translate("street_name__".$country, "Street Name/ Area (optional)"); ?></label>
     <div>
-        <input id="_street_name" name="street name" class="cart-input p" value="" type="text" placeholder="<?=$collector->translate("p_street_newname__".$country, "Ex: Al Sadd");?>">
-        <small><?=$collector->translate("hint_street_name__".$country, "If your street has a name, this helps the delivery person.");?></small>
+        <input id="_street_name" name="street name" class="cart-input p" value="" type="text" placeholder="<?=$collector_sh->translate("p_street_newname__".$country, "Ex: Al Sadd");?>">
+        <small><?=$collector_sh->translate("hint_street_name__".$country, "If your street has a name, this helps the delivery person.");?></small>
     </div>
 </div>
 
@@ -129,6 +129,7 @@ $country="qa";
     }
 })();
 </script>
+<?php $collector_sh->saveTranslation(); ?>
  
 
 
