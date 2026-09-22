@@ -1,5 +1,5 @@
 <?php
-if (!isset($OfferApi)) { include_once("../integrated/setup.php"); }
+if (!isset($OfferApi)) { include_once("../../integrated/setup.php"); }
 include_once(BASEPATH . '/src/JsonTranslateCollector.php');
 $collector_sh = new JsonCollector(
   targetLanguage: $OfferApi->targetLanguage,
@@ -34,8 +34,8 @@ $useTabbedLocationPicker = true;
 
 <?php if ($useTabbedLocationPicker): ?>
 
-<link rel="preload" as="style" href="<?= REPONAME ?>/src/common/css/location-picker-tabs.css?t=1789684701118">
-<link rel="stylesheet" href="<?= REPONAME ?>/src/common/css/location-picker-tabs.css?t=1789684701118">
+<link rel="preload" as="style" href="<?= REPONAME ?>/src/common/css/location-picker-tabs.css?t=1790093333071">
+<link rel="stylesheet" href="<?= REPONAME ?>/src/common/css/location-picker-tabs.css?t=1790093333071">
 
 <div class="mb-3">
     <label class="p cart-input-label" for="location_picker_display_id"><?= $collector_sh->translate("location_label".$country, "Province, City / Regency, District, Village"); ?></label>
@@ -346,7 +346,7 @@ $useTabbedLocationPicker = true;
 </script>
 
 <?php if ($useTabbedLocationPicker): ?>
-    <script src="<?= REPONAME ?>/src/common/js/location-picker-tabs.js?t=1789684701118" defer></script>
+    <script src="<?= REPONAME ?>/src/common/js/location-picker-tabs.js?t=1790093333071" defer></script>
 <?php endif; ?>
 <?php $collector_sh->saveTranslation(); ?>
 

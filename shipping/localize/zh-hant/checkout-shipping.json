@@ -1,0 +1,20 @@
+{
+    "town_city_hk": "\u5340",
+    "p_address_1_hk": "\u55ae\u4f4d\uff0f\u6a13\u5c64\uff0f\u5927\u6a13",
+    "p_address_2_hk": "\u8857\u9053\uff0f\u9053\u8def",
+    "house_building_no_hk": "\u9580\u724c\u865f\u78bc\uff0f\u6a13\u865f",
+    "state_hk": "\u5dde\uff0f\u7701",
+    "p_state_hk": "\u9078\u64c7\u5dde\uff0f\u7701",
+    "zip_hk": "\u90f5\u905e\u5340\u865f \/ \u90f5\u653f\u7de8\u865f",
+    "p_zip_hk": "\u90f5\u905e\u5340\u865f",
+    "address_1": "\u5730\u5740 1",
+    "p_address_1": "\u8857\u9053\u5730\u5740",
+    "address_2": "\u5730\u5740 2\uff08\u53ef\u9078\uff09",
+    "p_address_2": "\u516c\u5bd3\u3001\u5957\u623f\u3001\u55ae\u4f4d\u7b49\u3002",
+    "town_city": "\u57ce\u93ae\uff0f\u57ce\u5e02",
+    "p_town_city": "\u57ce\u93ae\uff0f\u57ce\u5e02",
+    "state": "\u5dde\uff0f\u7701",
+    "p_state": "\u9078\u64c7\u5dde\uff0f\u7701",
+    "zip": "\u90f5\u905e\u5340\u865f \/ \u90f5\u653f\u7de8\u865f",
+    "p_zip": "\u90f5\u905e\u5340\u865f"
+}

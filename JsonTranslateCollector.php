@@ -27,6 +27,11 @@ class JsonCollector {
     // regardless of which page's collector instance produced them.
     private const SHIPPING_KEY_PREFIX = "country_name";
 
+    // country_name* keys always live in checkout.json specifically (not each
+    // calling page's own funnel name, e.g. checkout_v2/cloud-air-cover), so
+    // every page shares the same set of translated country names.
+    private const SHIPPING_COUNTRY_NAME_PAGE = "checkout";
+
 
     public function __construct($targetLanguage="en",$pageName,$subFolder="") {
         $this->deepLKey = getenv('DEEPL_KEY');
@@ -64,7 +69,12 @@ class JsonCollector {
         if($namespace === 'shipping') {
             // Shipping text must stay colocated inside the src/shipping submodule
             // (src/shipping/localize/<lang>/...), not the main repo's root /lang.
-            return BASEPATH.$this->subFolder."/src/shipping/localize/".$targetLanguage."/".$this->pageName.".json";
+            // Only the shipping form itself (isShippingFile) uses its own page
+            // name (checkout-shipping); every other page lands here only via a
+            // country_name* key, which always belongs in checkout.json instead
+            // of that page's own funnel name.
+            $shippingPageName = $this->isShippingFile ? $this->pageName : self::SHIPPING_COUNTRY_NAME_PAGE;
+            return BASEPATH.$this->subFolder."/src/shipping/localize/".$targetLanguage."/".$shippingPageName.".json";
         }
         return BASEPATH.$this->subFolder."/lang/".$targetLanguage."/".$this->pageName.".json";
     }
