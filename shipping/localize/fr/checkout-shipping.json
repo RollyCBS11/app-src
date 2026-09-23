@@ -1,4 +1,5 @@
 {
+    "type_english_my": "Veuillez remplir les informations d'exp\u00e9dition suivantes en anglais.",
     "state_new_tr": "Province",
     "p_state_new_tr": "S\u00e9lectionnez une province",
     "district_tr": "Circonscription",
@@ -114,7 +115,7 @@
     "zip_pt": "Code postal",
     "p_zip_pt": "Code postal",
     "address_label__mc": "Ligne d\u2019adresse 1",
-    "street_placeholder__mc": "Rue et num\u00e9ro",
+    "street_placeholder__mc": "Num\u00e9ro de rue et de maison",
     "address2_label__mc": "Ligne d\u2019adresse 2",
     "address2_placeholder__mc": "Ligne d\u2019adresse 2 (facultatif)",
     "zip_label__mc": "Code postal",
