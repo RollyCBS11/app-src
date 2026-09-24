@@ -819,6 +819,10 @@ class OfferApi extends KonnektiveApi {
                                 $folders['tr'] = 'Turkish' ;
                                 break;
 
+                            case 'lb':
+                                $folders['lb'] = 'Luxembourgish' ;
+                                break;
+
                             case 'ur':
                                 $folders['ur'] = 'Urdu' ;
                                 break;
