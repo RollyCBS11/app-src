@@ -805,18 +805,23 @@ class OfferApi extends KonnektiveApi {
                                 break;
 
                             case 'id':
-                                $folders['id'] = 'Indonesia' ;
+                                $folders['id'] = 'Bahasa Indonesia' ;
                                 break;
+
+                            case 'pt':
+                                $folders['pt'] = 'Português' ;
+                                break;
+
                             case 'ar':
-                                $folders['ar'] = 'Arabic' ;
+                                $folders['ar'] = 'العربية' ;
                                 break;
 
                             case 'ro':
-                                $folders['ro'] = 'Romanian' ;
+                                $folders['ro'] = 'Română' ;
                                 break;
                             
                             case 'tr':
-                                $folders['tr'] = 'Turkish' ;
+                                $folders['tr'] = 'Türkçe' ;
                                 break;
 
                             case 'lb':
@@ -824,7 +829,11 @@ class OfferApi extends KonnektiveApi {
                                 break;
 
                             case 'ur':
-                                $folders['ur'] = 'Urdu' ;
+                                $folders['ur'] = 'اردو' ;
+                                break;
+
+                            case 'sv':
+                                $folders['sv'] = 'Svenska' ;
                                 break;
 
                         }
